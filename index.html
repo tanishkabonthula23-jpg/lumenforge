@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LumenForge | Digital Experiences</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">Lumen<span>Forge</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="hamburger"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <p class="hero-badge">Crafting Digital Excellence</p>
+      <h1 class="typing-text">We design experiences that <span id="typed"></span></h1>
+      <p class="hero-sub">Modern websites, interactive interfaces, and brand systems built for professionals who care about quality.</p>
+      <div class="hero-btns">
+        <a href="work.html" class="btn btn-primary">View Our Work</a>
+        <a href="contact.html" class="btn btn-outline">Start a Project</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why LumenForge</h2>
+        <p>Precision, motion, and clarity in every pixel.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-aos>
+          <div class="icon"><i class="fas fa-bolt"></i></div>
+          <h3>Performance First</h3>
+          <p>Lightning-fast load times and smooth interactions on every device.</p>
+        </div>
+        <div class="feature-card" data-aos>
+          <div class="icon"><i class="fas fa-magic"></i></div>
+          <h3>Motion Design</h3>
+          <p>Purposeful animations that guide users and elevate the experience.</p>
+        </div>
+        <div class="feature-card" data-aos>
+          <div class="icon"><i class="fas fa-layer-group"></i></div>
+          <h3>Modern Systems</h3>
+          <p>Scalable design systems and clean code ready for growth.</p>
+        </div>
+        <div class="feature-card" data-aos>
+          <div class="icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Trusted Delivery</h3>
+          <p>Reliable process from concept to launch and beyond.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAROUSEL 1 - Featured Work -->
+  <section class="carousel-section section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Featured Projects</h2>
+        <p>A selection of recent work</p>
+      </div>
+      <div class="carousel-wrapper">
+        <div class="carousel" id="homeCarousel">
+          <div class="carousel-track">
+            <div class="carousel-slide">
+              <div class="slide-img" style="background: linear-gradient(135deg,#0f766e,#134e4a);">🚀</div>
+              <div class="slide-content">
+                <h3>Orbit Analytics</h3>
+                <p>Real-time dashboard with fluid data visualization.</p>
+              </div>
+            </div>
+            <div class="carousel-slide">
+              <div class="slide-img" style="background: linear-gradient(135deg,#7c3aed,#4c1d95);">💎</div>
+              <div class="slide-content">
+                <h3>Luxe Commerce</h3>
+                <p>Premium e-commerce experience with seamless transitions.</p>
+              </div>
+            </div>
+            <div class="carousel-slide">
+              <div class="slide-img" style="background: linear-gradient(135deg,#b45309,#78350f);">🌌</div>
+              <div class="slide-content">
+                <h3>Nebula Studio</h3>
+                <p>Creative agency site with scroll-driven storytelling.</p>
+              </div>
+            </div>
+            <div class="carousel-slide">
+              <div class="slide-img" style="background: linear-gradient(135deg,#0369a1,#0c4a6e);">🔮</div>
+              <div class="slide-content">
+                <h3>Aura Health</h3>
+                <p>Calm wellness platform with soft micro-interactions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats section">
+    <div class="container stats-grid">
+      <div class="stat-item">
+        <h3 class="counter" data-target="120">0</h3>
+        <p>Projects Delivered</p>
+      </div>
+      <div class="stat-item">
+        <h3 class="counter" data-target="48">0</h3>
+        <p>Happy Clients</p>
+      </div>
+      <div class="stat-item">
+        <h3 class="counter" data-target="8">0</h3>
+        <p>Years Experience</p>
+      </div>
+      <div class="stat-item">
+        <h3 class="counter" data-target="24">0</h3>
+        <p>Awards Won</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta section">
+    <div class="container">
+      <h2>Ready to create something exceptional?</h2>
+      <p>Let’s discuss your next project.</p>
+      <a href="contact.html" class="btn btn-primary">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="logo">Lumen<span>Forge</span></a>
+        <p>Crafting modern digital experiences with precision and purpose.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="work.html">Work</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="#">Twitter / X</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 LumenForge. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
