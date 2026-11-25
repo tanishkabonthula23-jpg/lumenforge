@@ -1,603 +1,678 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LumenForge | Digital Experiences</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <style>
-    /* ===== RESET & VARIABLES ===== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg: #070b14;
-      --bg-alt: #0f1623;
-      --card: #151e2e;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --primary: #14b8a6;
-      --primary-dark: #0f766e;
-      --accent: #f59e0b;
-      --purple: #8b5cf6;
-      --radius: 18px;
-      --shadow: 0 25px 50px -12px rgba(0,0,0,0.55);
-      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
-    a { text-decoration: none; color: inherit; }
-    img { max-width: 100%; display: block; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LumenForge | Digital Experiences</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #060a12;
+    --bg2: #0c1220;
+    --card: #141c2b;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --primary: #14b8a6;
+    --primary-dark: #0d9488;
+    --accent: #f59e0b;
+    --radius: 18px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+  a { text-decoration: none; color: inherit; }
 
-    /* ===== NAVBAR ===== */
-    .navbar {
-      position: fixed; top: 0; width: 100%; z-index: 1000;
-      background: rgba(7,11,20,0.85); backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 1.1rem 0; transition: var(--transition);
-    }
-    .nav-container { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.55rem; font-weight: 700; letter-spacing: -0.5px; }
-    .logo span { color: var(--primary); }
-    .nav-links { display: flex; gap: 2.3rem; list-style: none; }
-    .nav-links a {
-      color: var(--muted); font-weight: 500; transition: var(--transition);
-      position: relative; font-size: 0.95rem;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -5px; left: 0;
-      width: 0; height: 2px; background: var(--primary); transition: width 0.3s ease;
-    }
-    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-    .nav-cta {
-      background: var(--primary); color: #fff; padding: 0.55rem 1.35rem;
-      border-radius: 50px; font-weight: 600; font-size: 0.9rem;
-      transition: var(--transition);
-    }
-    .nav-cta:hover { background: var(--primary-dark); transform: translateY(-2px); }
+  /* ===== NAVBAR ===== */
+  .navbar {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(6,10,18,0.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 1rem 0;
+  }
+  .nav-inner {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo { font-size: 1.5rem; font-weight: 700; }
+  .logo span { color: var(--primary); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); font-weight: 500; font-size: 0.95rem;
+    transition: 0.3s; position: relative;
+  }
+  .nav-links a:hover, .nav-links a.active { color: #fff; }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -5px; left: 0;
+    width: 0; height: 2px; background: var(--primary); transition: 0.3s;
+  }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .btn-nav {
+    background: var(--primary); color: white;
+    padding: 0.55rem 1.3rem; border-radius: 50px;
+    font-weight: 600; font-size: 0.9rem; transition: 0.3s;
+  }
+  .btn-nav:hover { background: var(--primary-dark); transform: translateY(-2px); }
 
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center;
-      position: relative; overflow: hidden; padding-top: 80px;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: 
-        radial-gradient(circle at 75% 25%, rgba(20,184,166,0.18), transparent 45%),
-        radial-gradient(circle at 15% 75%, rgba(139,92,246,0.12), transparent 40%);
-    }
-    .hero-content { position: relative; z-index: 2; max-width: 680px; }
-    .hero-badge {
-      display: inline-block; background: rgba(20,184,166,0.15); color: var(--primary);
-      padding: 0.4rem 1.1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600;
-      margin-bottom: 1.6rem; border: 1px solid rgba(20,184,166,0.3);
-      animation: fadeUp 0.8s ease forwards;
-    }
-    .hero h1 {
-      font-size: clamp(2.7rem, 6vw, 4.1rem); font-weight: 800; line-height: 1.12;
-      margin-bottom: 1.4rem; letter-spacing: -1.2px;
-      animation: fadeUp 0.8s ease 0.15s forwards; opacity: 0;
-    }
-    .hero h1 span { color: var(--primary); }
-    .hero-sub {
-      font-size: 1.2rem; color: var(--muted); margin-bottom: 2.4rem; max-width: 520px;
-      animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0;
-    }
-    .hero-btns {
-      display: flex; gap: 1rem; flex-wrap: wrap;
-      animation: fadeUp 0.8s ease 0.45s forwards; opacity: 0;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.95rem 2rem; border-radius: 50px; font-weight: 600;
-      font-size: 1rem; transition: var(--transition); border: none; cursor: pointer;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), #0d9488);
-      color: #fff; box-shadow: 0 12px 28px rgba(20,184,166,0.4);
-    }
-    .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 18px 35px rgba(20,184,166,0.5); }
-    .btn-outline {
-      background: transparent; color: var(--text);
-      border: 1.5px solid rgba(255,255,255,0.18);
-    }
-    .btn-outline:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-4px); }
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; padding-top: 80px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 70% 20%, rgba(20,184,166,0.18), transparent 45%),
+      radial-gradient(circle at 20% 80%, rgba(139,92,246,0.12), transparent 40%);
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .badge {
+    display: inline-block;
+    background: rgba(20,184,166,0.15);
+    color: var(--primary);
+    padding: 0.4rem 1.1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid rgba(20,184,166,0.3);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.4rem;
+    letter-spacing: -1.5px;
+  }
+  .hero h1 span { color: var(--primary); }
+  .hero p {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-bottom: 2.4rem;
+    max-width: 520px;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.95rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: 0.35s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: white;
+    box-shadow: 0 12px 30px rgba(20,184,166,0.4);
+  }
+  .btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(20,184,166,0.5);
+  }
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.2);
+  }
+  .btn-outline:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-4px);
+  }
 
-    /* ===== MARQUEE ===== */
-    .marquee-section {
-      background: var(--bg-alt); padding: 1.4rem 0; overflow: hidden;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .marquee {
-      display: flex; white-space: nowrap; animation: marquee 28s linear infinite;
-    }
-    .marquee span {
-      font-size: 1.05rem; font-weight: 600; color: var(--muted);
-      margin-right: 3.5rem; letter-spacing: 0.5px;
-    }
-    .marquee span i { color: var(--primary); margin-right: 0.6rem; }
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+  /* ===== MARQUEE ===== */
+  .marquee-wrap {
+    background: var(--bg2);
+    padding: 1.3rem 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .marquee {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee span {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-right: 3.5rem;
+  }
+  .marquee span i { color: var(--primary); margin-right: 0.6rem; }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 
-    /* ===== SECTIONS ===== */
-    .section { padding: 6.5rem 0; }
-    .section-header { text-align: center; max-width: 620px; margin: 0 auto 3.8rem; }
-    .section-header h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 0.9rem; }
-    .section-header p { color: var(--muted); font-size: 1.12rem; }
+  /* ===== SECTIONS ===== */
+  .section { padding: 6.5rem 0; }
+  .section-title {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 3.8rem;
+  }
+  .section-title h2 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin-bottom: 0.8rem;
+  }
+  .section-title p { color: var(--muted); font-size: 1.1rem; }
 
-    /* ===== FEATURES ===== */
-    .features { background: var(--bg-alt); }
-    .features-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.8rem;
-    }
-    .feature-card {
-      background: var(--card); padding: 2.1rem; border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,0.05); transition: var(--transition);
-      position: relative; overflow: hidden;
-    }
-    .feature-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(20,184,166,0.08), transparent);
-      opacity: 0; transition: opacity 0.4s;
-    }
-    .feature-card:hover {
-      transform: translateY(-12px); border-color: rgba(20,184,166,0.4);
-      box-shadow: var(--shadow);
-    }
-    .feature-card:hover::before { opacity: 1; }
-    .feature-card .icon {
-      width: 54px; height: 54px; background: linear-gradient(135deg, var(--primary), var(--purple));
-      border-radius: 14px; display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; margin-bottom: 1.4rem;
-    }
-    .feature-card h3 { margin-bottom: 0.7rem; font-size: 1.28rem; }
-    .feature-card p { color: var(--muted); font-size: 0.96rem; }
+  /* ===== FEATURES ===== */
+  .features { background: var(--bg2); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.8rem;
+  }
+  .feature-card {
+    background: var(--card);
+    padding: 2.1rem;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .feature-card:hover {
+    transform: translateY(-12px);
+    border-color: rgba(20,184,166,0.4);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  }
+  .feature-icon {
+    width: 54px; height: 54px;
+    background: linear-gradient(135deg, #14b8a6, #8b5cf6);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.4rem;
+  }
+  .feature-card h3 { margin-bottom: 0.7rem; font-size: 1.25rem; }
+  .feature-card p { color: var(--muted); font-size: 0.96rem; }
 
-    /* ===== PROJECTS WITH IMAGE HOVER ===== */
-    .projects-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem;
-    }
-    .project-card {
-      border-radius: var(--radius); overflow: hidden; position: relative;
-      height: 340px; cursor: pointer; box-shadow: var(--shadow);
-    }
-    .project-card img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .project-card:hover img { transform: scale(1.12); }
-    .project-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(7,11,20,0.92) 0%, rgba(7,11,20,0.3) 50%, transparent 100%);
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 1.8rem; transition: var(--transition);
-    }
-    .project-card:hover .project-overlay {
-      background: linear-gradient(to top, rgba(7,11,20,0.95) 0%, rgba(20,184,166,0.25) 60%, transparent 100%);
-    }
-    .project-overlay h3 { font-size: 1.4rem; margin-bottom: 0.4rem; transform: translateY(12px); transition: var(--transition); }
-    .project-overlay p { color: var(--muted); font-size: 0.95rem; transform: translateY(12px); transition: var(--transition); }
-    .project-card:hover .project-overlay h3,
-    .project-card:hover .project-overlay p { transform: translateY(0); }
+  /* ===== PROJECTS ===== */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.8rem;
+  }
+  .project-card {
+    position: relative;
+    height: 360px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  }
+  .project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .project-card:hover img { transform: scale(1.12); }
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(6,10,18,0.92) 0%, rgba(6,10,18,0.3) 55%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.8rem;
+    transition: 0.4s;
+  }
+  .project-card:hover .project-overlay {
+    background: linear-gradient(to top, rgba(6,10,18,0.95) 0%, rgba(20,184,166,0.25) 60%, transparent 100%);
+  }
+  .project-overlay h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+    transform: translateY(15px);
+    transition: 0.4s;
+  }
+  .project-overlay p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    transform: translateY(15px);
+    transition: 0.4s 0.05s;
+  }
+  .project-card:hover .project-overlay h3,
+  .project-card:hover .project-overlay p {
+    transform: translateY(0);
+  }
 
-    /* ===== STATS ===== */
-    .stats {
-      background: linear-gradient(135deg, #0c1220, #151e2e);
-      position: relative; overflow: hidden;
-    }
-    .stats-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;
-    }
-    .stat-item h3 {
-      font-size: 3rem; color: var(--primary); margin-bottom: 0.35rem;
-      font-weight: 800;
-    }
-    .stat-item p { color: var(--muted); font-size: 1.05rem; }
+  /* ===== STATS ===== */
+  .stats {
+    background: linear-gradient(135deg, #0a101c, #141c2b);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .stat-item h3 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+  }
+  .stat-item p { color: var(--muted); font-size: 1.05rem; }
 
-    /* ===== TESTIMONIAL MARQUEE ===== */
-    .testimonial-marquee {
-      background: var(--bg); padding: 3rem 0; overflow: hidden;
-    }
-    .testimonial-track {
-      display: flex; gap: 2rem; animation: marquee 40s linear infinite;
-    }
-    .testimonial-card {
-      min-width: 340px; background: var(--card); padding: 1.8rem;
-      border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.06);
-    }
-    .testimonial-card p { color: var(--muted); margin-bottom: 1.2rem; font-size: 0.98rem; }
-    .testimonial-author { display: flex; align-items: center; gap: 0.9rem; }
-    .testimonial-author img {
-      width: 44px; height: 44px; border-radius: 50%; object-fit: cover;
-    }
-    .testimonial-author strong { display: block; font-size: 0.95rem; }
-    .testimonial-author span { color: var(--muted); font-size: 0.85rem; }
+  /* ===== TESTIMONIAL MARQUEE ===== */
+  .testimonial-section {
+    padding: 4rem 0;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .testimonial-track {
+    display: flex;
+    gap: 1.8rem;
+    animation: marquee 45s linear infinite;
+  }
+  .testimonial-card {
+    min-width: 340px;
+    background: var(--card);
+    padding: 1.8rem;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .testimonial-card p {
+    color: var(--muted);
+    margin-bottom: 1.3rem;
+    font-size: 0.98rem;
+  }
+  .author {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .author img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .author strong { display: block; font-size: 0.95rem; }
+  .author span { color: var(--muted); font-size: 0.85rem; }
 
-    /* ===== CTA ===== */
-    .cta {
-      text-align: center;
-      background: radial-gradient(circle at center, rgba(20,184,166,0.14), transparent 65%);
-      padding: 7rem 0;
-    }
-    .cta h2 { font-size: 2.6rem; margin-bottom: 1rem; }
-    .cta p { color: var(--muted); margin-bottom: 2rem; font-size: 1.15rem; }
+  /* ===== CTA ===== */
+  .cta {
+    text-align: center;
+    padding: 7rem 0;
+    background: radial-gradient(circle at center, rgba(20,184,166,0.13), transparent 65%);
+  }
+  .cta h2 { font-size: 2.6rem; margin-bottom: 1rem; }
+  .cta p { color: var(--muted); margin-bottom: 2rem; font-size: 1.15rem; }
 
-    /* ===== FOOTER ===== */
-    .footer {
-      background: var(--bg-alt); padding: 4.5rem 0 2rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    .footer-grid {
-      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem;
-    }
-    .footer h4 { margin-bottom: 1.2rem; font-size: 1.05rem; }
-    .footer a {
-      display: block; color: var(--muted); margin-bottom: 0.65rem;
-      transition: var(--transition); font-size: 0.95rem;
-    }
-    .footer a:hover { color: var(--primary); }
-    .footer-bottom {
-      text-align: center; padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      color: var(--muted); font-size: 0.9rem;
-    }
+  /* ===== FOOTER ===== */
+  .footer {
+    background: var(--bg2);
+    padding: 4.5rem 0 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer h4 { margin-bottom: 1.2rem; }
+  .footer a {
+    display: block;
+    color: var(--muted);
+    margin-bottom: 0.65rem;
+    transition: 0.3s;
+  }
+  .footer a:hover { color: var(--primary); }
+  .footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
 
-    /* ===== ANIMATIONS ===== */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(35px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { opacity: 0; transform: translateY(40px); transition: 0.8s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  /* Animations */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.8s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 600px) {
-      .stats-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .project-card { height: 280px; }
-    }
-  </style>
+  /* Responsive */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .project-card { height: 300px; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="container nav-container">
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo">Lumen<span>Forge</span></a>
+    <ul class="nav-links">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn-nav">Start Project</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container hero-content">
+    <div class="badge">✦ Crafting Digital Excellence</div>
+    <h1>We design experiences that <span id="typed"></span></h1>
+    <p>Modern websites and digital products built with precision, motion, and clarity for professionals who care about quality.</p>
+    <div class="hero-btns">
+      <a href="#work" class="btn btn-primary">View Our Work</a>
+      <a href="#contact" class="btn btn-outline">Start a Project</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span><i class="fas fa-star"></i> UI/UX Design</span>
+    <span><i class="fas fa-code"></i> Frontend Development</span>
+    <span><i class="fas fa-mobile-alt"></i> Responsive Systems</span>
+    <span><i class="fas fa-bolt"></i> Performance</span>
+    <span><i class="fas fa-magic"></i> Motion Design</span>
+    <span><i class="fas fa-layer-group"></i> Design Systems</span>
+    <span><i class="fas fa-star"></i> UI/UX Design</span>
+    <span><i class="fas fa-code"></i> Frontend Development</span>
+    <span><i class="fas fa-mobile-alt"></i> Responsive Systems</span>
+    <span><i class="fas fa-bolt"></i> Performance</span>
+    <span><i class="fas fa-magic"></i> Motion Design</span>
+    <span><i class="fas fa-layer-group"></i> Design Systems</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features section" id="features">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>Why teams choose LumenForge</h2>
+      <p>Everything you need to create memorable digital experiences.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Performance First</h3>
+        <p>Lightning-fast load times and smooth interactions on every device.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon"><i class="fas fa-magic"></i></div>
+        <h3>Motion Design</h3>
+        <p>Purposeful animations that guide users and elevate the experience.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+        <h3>Modern Systems</h3>
+        <p>Scalable design systems and clean code ready for growth.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>Trusted Delivery</h3>
+        <p>Reliable process from concept to launch and beyond.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="section" id="work">
+  <div class="container">
+    <div class="section-title fade-up">
+      <h2>Selected Work</h2>
+      <p>Hover on any project to see the details</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card fade-up">
+        <img src="https://picsum.photos/id/1/800/600" alt="Project">
+        <div class="project-overlay">
+          <h3>Orbit Analytics</h3>
+          <p>Real-time SaaS dashboard with fluid data visualization</p>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <img src="https://picsum.photos/id/20/800/600" alt="Project">
+        <div class="project-overlay">
+          <h3>Luxe Commerce</h3>
+          <p>Premium e-commerce experience with seamless transitions</p>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <img src="https://picsum.photos/id/48/800/600" alt="Project">
+        <div class="project-overlay">
+          <h3>Nebula Studio</h3>
+          <p>Creative agency portfolio with scroll-driven storytelling</p>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <img src="https://picsum.photos/id/60/800/600" alt="Project">
+        <div class="project-overlay">
+          <h3>Aura Health</h3>
+          <p>Calm wellness platform with soft micro-interactions</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats section">
+  <div class="container stats-grid">
+    <div class="stat-item fade-up">
+      <h3 class="counter" data-target="120">0</h3>
+      <p>Projects Delivered</p>
+    </div>
+    <div class="stat-item fade-up">
+      <h3 class="counter" data-target="48">0</h3>
+      <p>Happy Clients</p>
+    </div>
+    <div class="stat-item fade-up">
+      <h3 class="counter" data-target="8">0</h3>
+      <p>Years Experience</p>
+    </div>
+    <div class="stat-item fade-up">
+      <h3 class="counter" data-target="24">0</h3>
+      <p>Awards Won</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS MARQUEE -->
+<div class="testimonial-section">
+  <div class="testimonial-track">
+    <div class="testimonial-card">
+      <p>"LumenForge transformed our digital presence. The attention to detail and motion design is exceptional."</p>
+      <div class="author">
+        <img src="https://picsum.photos/id/64/100/100" alt="">
+        <div>
+          <strong>Sarah Chen</strong>
+          <span>CEO, Orbit Labs</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p>"Clean code, beautiful interfaces, and delivery that actually matches the timeline. Highly recommended."</p>
+      <div class="author">
+        <img src="https://picsum.photos/id/65/100/100" alt="">
+        <div>
+          <strong>Marcus Reid</strong>
+          <span>Product Lead, Nova</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p>"They understand both design and engineering. The final product feels premium and performs flawlessly."</p>
+      <div class="author">
+        <img src="https://picsum.photos/id/91/100/100" alt="">
+        <div>
+          <strong>Elena Vargas</strong>
+          <span>Founder, Aura</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p>"From strategy to launch, the process was transparent and the results exceeded our expectations."</p>
+      <div class="author">
+        <img src="https://picsum.photos/id/177/100/100" alt="">
+        <div>
+          <strong>James Okonkwo</strong>
+          <span>Director, Luxe Co</span>
+        </div>
+      </div>
+    </div>
+    <!-- Duplicate for seamless loop -->
+    <div class="testimonial-card">
+      <p>"LumenForge transformed our digital presence. The attention to detail and motion design is exceptional."</p>
+      <div class="author">
+        <img src="https://picsum.photos/id/64/100/100" alt="">
+        <div>
+          <strong>Sarah Chen</strong>
+          <span>CEO, Orbit Labs</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p>"Clean code, beautiful interfaces, and delivery that actually matches the timeline. Highly recommended."</p>
+      <div class="author">
+        <img src="https://picsum.photos/id/65/100/100" alt="">
+        <div>
+          <strong>Marcus Reid</strong>
+          <span>Product Lead, Nova</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta section" id="contact">
+  <div class="container">
+    <h2 class="fade-up">Ready to create something exceptional?</h2>
+    <p class="fade-up">Let’s discuss your next project. No pressure — just great ideas.</p>
+    <a href="mailto:hello@lumenforge.studio" class="btn btn-primary fade-up">Get in Touch</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
       <a href="#" class="logo">Lumen<span>Forge</span></a>
-      <ul class="nav-links">
-        <li><a href="#home" class="active">Home</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <a href="#contact" class="nav-cta">Start Project</a>
+      <p style="color:var(--muted); margin-top:1rem; max-width:280px;">Crafting modern digital experiences with precision and purpose.</p>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="container hero-content">
-      <div class="hero-badge">✦ Crafting Digital Excellence</div>
-      <h1>We design experiences that <span id="typed"></span></h1>
-      <p class="hero-sub">Modern websites and digital products built with precision, motion, and clarity for professionals who care about quality.</p>
-      <div class="hero-btns">
-        <a href="#work" class="btn btn-primary">View Our Work</a>
-        <a href="#contact" class="btn btn-outline">Start a Project</a>
-      </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
     </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee-section">
-    <div class="marquee">
-      <span><i class="fas fa-star"></i> UI/UX Design</span>
-      <span><i class="fas fa-code"></i> Frontend Development</span>
-      <span><i class="fas fa-mobile-alt"></i> Responsive Systems</span>
-      <span><i class="fas fa-bolt"></i> Performance</span>
-      <span><i class="fas fa-magic"></i> Motion Design</span>
-      <span><i class="fas fa-layer-group"></i> Design Systems</span>
-      <span><i class="fas fa-star"></i> UI/UX Design</span>
-      <span><i class="fas fa-code"></i> Frontend Development</span>
-      <span><i class="fas fa-mobile-alt"></i> Responsive Systems</span>
-      <span><i class="fas fa-bolt"></i> Performance</span>
-      <span><i class="fas fa-magic"></i> Motion Design</span>
-      <span><i class="fas fa-layer-group"></i> Design Systems</span>
+    <div>
+      <h4>Connect</h4>
+      <a href="#">Twitter / X</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">GitHub</a>
     </div>
   </div>
-
-  <!-- FEATURES -->
-  <section class="features section" id="features">
-    <div class="container">
-      <div class="section-header fade-up">
-        <h2>Why teams choose LumenForge</h2>
-        <p>Everything you need to create memorable digital experiences.</p>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card fade-up">
-          <div class="icon"><i class="fas fa-bolt"></i></div>
-          <h3>Performance First</h3>
-          <p>Lightning-fast load times and buttery smooth interactions on every device.</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="icon"><i class="fas fa-magic"></i></div>
-          <h3>Motion Design</h3>
-          <p>Purposeful animations that guide users and make interfaces feel premium.</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="icon"><i class="fas fa-layer-group"></i></div>
-          <h3>Modern Systems</h3>
-          <p>Scalable design systems and clean code ready for long-term growth.</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="icon"><i class="fas fa-shield-alt"></i></div>
-          <h3>Trusted Delivery</h3>
-          <p>Reliable process from concept to launch with clear communication.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORK / PROJECTS -->
-  <section class="section" id="work">
-    <div class="container">
-      <div class="section-header fade-up">
-        <h2>Selected Work</h2>
-        <p>Real projects. Real results. Hover to explore.</p>
-      </div>
-      <div class="projects-grid">
-        <div class="project-card fade-up">
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Analytics Dashboard">
-          <div class="project-overlay">
-            <h3>Orbit Analytics</h3>
-            <p>Real-time SaaS dashboard with fluid data visualization</p>
-          </div>
-        </div>
-        <div class="project-card fade-up">
-          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80" alt="E-commerce">
-          <div class="project-overlay">
-            <h3>Luxe Commerce</h3>
-            <p>Premium e-commerce experience with seamless transitions</p>
-          </div>
-        </div>
-        <div class="project-card fade-up">
-          <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80" alt="Agency">
-          <div class="project-overlay">
-            <h3>Nebula Studio</h3>
-            <p>Creative agency portfolio with scroll-driven storytelling</p>
-          </div>
-        </div>
-        <div class="project-card fade-up">
-          <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80" alt="Health">
-          <div class="project-overlay">
-            <h3>Aura Health</h3>
-            <p>Calm wellness platform with soft micro-interactions</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <section class="stats section">
-    <div class="container stats-grid">
-      <div class="stat-item fade-up">
-        <h3 class="counter" data-target="120">0</h3>
-        <p>Projects Delivered</p>
-      </div>
-      <div class="stat-item fade-up">
-        <h3 class="counter" data-target="48">0</h3>
-        <p>Happy Clients</p>
-      </div>
-      <div class="stat-item fade-up">
-        <h3 class="counter" data-target="8">0</h3>
-        <p>Years Experience</p>
-      </div>
-      <div class="stat-item fade-up">
-        <h3 class="counter" data-target="24">0</h3>
-        <p>Awards Won</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIAL MARQUEE -->
-  <div class="testimonial-marquee">
-    <div class="testimonial-track">
-      <div class="testimonial-card">
-        <p>"LumenForge transformed our digital presence. The attention to detail and motion design is exceptional."</p>
-        <div class="testimonial-author">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="">
-          <div>
-            <strong>Sarah Chen</strong>
-            <span>CEO, Orbit Labs</span>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <p>"Clean code, beautiful interfaces, and delivery that actually matches the timeline. Highly recommended."</p>
-        <div class="testimonial-author">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="">
-          <div>
-            <strong>Marcus Reid</strong>
-            <span>Product Lead, Nova</span>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <p>"They understand both design and engineering. The final product feels premium and performs flawlessly."</p>
-        <div class="testimonial-author">
-          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="">
-          <div>
-            <strong>Elena Vargas</strong>
-            <span>Founder, Aura</span>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <p>"From strategy to launch, the process was transparent and the results exceeded our expectations."</p>
-        <div class="testimonial-author">
-          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="">
-          <div>
-            <strong>James Okonkwo</strong>
-            <span>Director, Luxe Co</span>
-          </div>
-        </div>
-      </div>
-      <!-- Duplicate for seamless loop -->
-      <div class="testimonial-card">
-        <p>"LumenForge transformed our digital presence. The attention to detail and motion design is exceptional."</p>
-        <div class="testimonial-author">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="">
-          <div>
-            <strong>Sarah Chen</strong>
-            <span>CEO, Orbit Labs</span>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card">
-        <p>"Clean code, beautiful interfaces, and delivery that actually matches the timeline. Highly recommended."</p>
-        <div class="testimonial-author">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="">
-          <div>
-            <strong>Marcus Reid</strong>
-            <span>Product Lead, Nova</span>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="footer-bottom">
+    <p>© 2026 LumenForge. Crafted with care.</p>
   </div>
+</footer>
 
-  <!-- CTA / CONTACT -->
-  <section class="cta section" id="contact">
-    <div class="container">
-      <h2 class="fade-up">Ready to create something exceptional?</h2>
-      <p class="fade-up">Let’s discuss your next project. No pressure — just great ideas.</p>
-      <a href="mailto:hello@lumenforge.studio" class="btn btn-primary fade-up">Get in Touch</a>
-    </div>
-  </section>
+<script>
+$(document).ready(function() {
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div>
-        <a href="#" class="logo">Lumen<span>Forge</span></a>
-        <p style="color:var(--muted); margin-top:1rem; max-width:280px;">Crafting modern digital experiences with precision and purpose.</p>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <a href="#home">Home</a>
-        <a href="#features">Features</a>
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div>
-        <h4>Connect</h4>
-        <a href="#">Twitter / X</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">GitHub</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 LumenForge. Crafted with care.</p>
-    </div>
-  </footer>
+  // Typing effect
+  const words = ["feel alive.", "convert better.", "stand out.", "inspire action."];
+  let i = 0, j = 0, isDeleting = false;
+  function type() {
+    const current = words[i];
+    const display = isDeleting ? current.substring(0, j--) : current.substring(0, j++);
+    $('#typed').text(display);
+    if (!isDeleting && j === current.length + 1) {
+      isDeleting = true;
+      setTimeout(type, 1600);
+    } else if (isDeleting && j === 0) {
+      isDeleting = false;
+      i = (i + 1) % words.length;
+      setTimeout(type, 400);
+    } else {
+      setTimeout(type, isDeleting ? 45 : 95);
+    }
+  }
+  type();
 
-  <script>
-    $(document).ready(function () {
+  // Smooth scroll
+  $('a[href^="#"]').on('click', function(e) {
+    e.preventDefault();
+    const target = $($(this).attr('href'));
+    if (target.length) {
+      $('html, body').animate({ scrollTop: target.offset().top - 70 }, 700);
+    }
+  });
 
-      // Typing effect
-      const words = ["feel alive.", "convert better.", "stand out.", "inspire action."];
-      let i = 0, j = 0, current = "", isDeleting = false;
-      function type() {
-        current = words[i];
-        let display = isDeleting ? current.substring(0, j--) : current.substring(0, j++);
-        $('#typed').text(display);
-        if (!isDeleting && j === current.length + 1) {
-          isDeleting = true;
-          setTimeout(type, 1600);
-        } else if (isDeleting && j === 0) {
-          isDeleting = false;
-          i = (i + 1) % words.length;
-          setTimeout(type, 400);
-        } else {
-          setTimeout(type, isDeleting ? 45 : 95);
-        }
+  // Fade up on scroll
+  function checkVisible() {
+    $('.fade-up').each(function() {
+      if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 90) {
+        $(this).addClass('visible');
       }
-      type();
-
-      // Smooth scroll for nav links
-      $('a[href^="#"]').on('click', function (e) {
-        e.preventDefault();
-        const target = $($(this).attr('href'));
-        if (target.length) {
-          $('html, body').animate({ scrollTop: target.offset().top - 70 }, 700);
-        }
-      });
-
-      // Active nav on scroll
-      $(window).on('scroll', function () {
-        const scrollPos = $(window).scrollTop() + 100;
-        $('section[id]').each(function () {
-          const top = $(this).offset().top;
-          const bottom = top + $(this).outerHeight();
-          const id = $(this).attr('id');
-          if (scrollPos >= top && scrollPos < bottom) {
-            $('.nav-links a').removeClass('active');
-            $('.nav-links a[href="#' + id + '"]').addClass('active');
-          }
-        });
-      });
-
-      // Fade-up on scroll
-      function checkVisible() {
-        $('.fade-up').each(function () {
-          const top = $(this).offset().top;
-          if (top < $(window).scrollTop() + $(window).height() - 90) {
-            $(this).addClass('visible');
-          }
-        });
-      }
-      $(window).on('scroll', checkVisible);
-      checkVisible();
-
-      // Counter animation
-      let counted = false;
-      $(window).on('scroll', function () {
-        if ($('.stats').length && !counted) {
-          const top = $('.stats').offset().top;
-          if (top < $(window).scrollTop() + $(window).height() - 120) {
-            $('.counter').each(function () {
-              const $this = $(this);
-              const target = +$this.data('target');
-              $({ count: 0 }).animate({ count: target }, {
-                duration: 2200,
-                easing: 'swing',
-                step: function () { $this.text(Math.floor(this.count)); },
-                complete: function () { $this.text(target); }
-              });
-            });
-            counted = true;
-          }
-        }
-      });
-
     });
-  </script>
+  }
+  $(window).on('scroll', checkVisible);
+  checkVisible();
+
+  // Counter animation
+  let counted = false;
+  $(window).on('scroll', function() {
+    if ($('.stats').length && !counted) {
+      if ($('.stats').offset().top < $(window).scrollTop() + $(window).height() - 120) {
+        $('.counter').each(function() {
+          const $this = $(this);
+          const target = +$this.data('target');
+          $({ count: 0 }).animate({ count: target }, {
+            duration: 2200,
+            step: function() { $this.text(Math.floor(this.count)); },
+            complete: function() { $this.text(target); }
+          });
+        });
+        counted = true;
+      }
+    }
+  });
+
+});
+</script>
 </body>
 </html>
